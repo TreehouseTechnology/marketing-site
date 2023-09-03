@@ -14,8 +14,6 @@ export const UIProvider: React.FC<PropsWithChildren<unknown>> = ({
 export const App: React.FC<unknown> = () => {
   const theme = useReactNavigationTheme();
 
-  console.log("Fuck you");
-
   return (
     <UIProvider>
       <NavigationContainer
