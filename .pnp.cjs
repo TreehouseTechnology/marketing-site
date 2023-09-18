@@ -39,7 +39,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@svgr/webpack", "npm:8.1.0"],\
             ["@testing-library/jest-dom", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:6.1.2"],\
             ["@testing-library/react", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:14.0.0"],\
-            ["@testing-library/user-event", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:12.8.3"],\
+            ["@testing-library/user-event", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:14.5.1"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/lodash", "npm:4.14.197"],\
             ["@types/node", "npm:20.5.7"],\
@@ -5487,18 +5487,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@testing-library/user-event", [\
-        ["npm:12.8.3", {\
-          "packageLocation": "./.yarn/cache/@testing-library-user-event-npm-12.8.3-a89e3f1011-c9fb5ee07c.zip/node_modules/@testing-library/user-event/",\
+        ["npm:14.5.1", {\
+          "packageLocation": "./.yarn/cache/@testing-library-user-event-npm-14.5.1-daca21fbcb-3e6bc9fd53.zip/node_modules/@testing-library/user-event/",\
           "packageDependencies": [\
-            ["@testing-library/user-event", "npm:12.8.3"]\
+            ["@testing-library/user-event", "npm:14.5.1"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:12.8.3", {\
-          "packageLocation": "./.yarn/__virtual__/@testing-library-user-event-virtual-8b2952f0dc/0/cache/@testing-library-user-event-npm-12.8.3-a89e3f1011-c9fb5ee07c.zip/node_modules/@testing-library/user-event/",\
+        ["virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:14.5.1", {\
+          "packageLocation": "./.yarn/__virtual__/@testing-library-user-event-virtual-52c1b0537a/0/cache/@testing-library-user-event-npm-14.5.1-daca21fbcb-3e6bc9fd53.zip/node_modules/@testing-library/user-event/",\
           "packageDependencies": [\
-            ["@testing-library/user-event", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:12.8.3"],\
-            ["@babel/runtime", "npm:7.22.11"],\
+            ["@testing-library/user-event", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:14.5.1"],\
             ["@testing-library/dom", null],\
             ["@types/testing-library__dom", null]\
           ],\
@@ -14038,7 +14037,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@svgr/webpack", "npm:8.1.0"],\
             ["@testing-library/jest-dom", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:6.1.2"],\
             ["@testing-library/react", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:14.0.0"],\
-            ["@testing-library/user-event", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:12.8.3"],\
+            ["@testing-library/user-event", "virtual:99dc3dda4e1860527a43ad26f687c55b19d6834d9bac31afeaa0886243ca318449212519fcd15d60e32b9b5e2cd41eb9d2c049dd3437d7b71d1115e89af8558c#npm:14.5.1"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/lodash", "npm:4.14.197"],\
             ["@types/node", "npm:20.5.7"],\
