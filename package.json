@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
+    "@tailwindcss/postcss": "4.0.0-alpha.13",
+    "@types/node": "20.11.17",
+    "@types/react": "18.2.55",
+    "@types/react-dom": "18.2.19",
+    "@vercel/analytics": "^1.1.3",
+    "@vercel/speed-insights": "^1.0.9",
+    "geist": "1.2.2",
+    "next": "canary",
+    "next-mdx-remote": "^4.4.1",
+    "nodemailer": "^7.0.5",
+    "postcss": "^8.4.35",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.61.1",
+    "sugar-high": "^0.6.0",
+    "tailwindcss": "4.0.0-alpha.13",
+    "typescript": "5.3.3",
+    "zod": "^4.0.13"
+  },
+  "packageManager": "pnpm@8.15.9+sha512.499434c9d8fdd1a2794ebf4552b3b25c0a633abcee5bb15e7b5de90f32f47b513aca98cd5cfd001c31f0db454bc3804edccd578501e4ca293a6816166bbd9f81",
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.17"
+  }
+}
