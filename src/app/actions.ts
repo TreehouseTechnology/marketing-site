@@ -17,7 +17,6 @@ const generateMailOptions: GenerateMailOptionsFn = ({
   text: `
   NAME: ${name}
   EMAIL: ${email}
-
   MESSAGE: "${message}"
   `,
 });

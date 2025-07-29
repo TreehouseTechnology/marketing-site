@@ -43,7 +43,7 @@ function readMDXFile(path: fs.PathOrFileDescriptor) {
 function getMDXData(dir: string) {
   let mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((file) => {
-    const { metadata, content } = readMDXFile(file);
+    const { metadata, content } = readMDXFile(path.join(dir, file));
     const slug = path.basename(file, path.extname(file));
 
     return {
