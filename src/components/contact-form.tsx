@@ -10,7 +10,7 @@ export interface ContactFormProps {
   onSubmit: (data: FormData) => void;
 }
 
-function Contact({ onSubmit }: ContactFormProps) {
+function ContactForm({ onSubmit }: ContactFormProps) {
   const { register, handleSubmit } = useForm({
     resolver: zodResolver(schema),
   });
@@ -68,4 +68,4 @@ function Contact({ onSubmit }: ContactFormProps) {
   );
 }
 
-export default Contact;
+export default ContactForm;

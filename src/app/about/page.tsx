@@ -1,4 +1,4 @@
-import TeamMember from "@/components/team-member";
+import { TeamMembers } from "@/components/team-members";
 
 export const metadata = {
   title: "About",
@@ -15,20 +15,7 @@ export default function Page() {
       experience and processes.`}</p>
       </div>
 
-      <div>
-        <h3 className="font-semibold text-large mt-8 mb-4">Team</h3>
-
-        <div>
-          <h3>Justin Makaila</h3>
-          <p>
-            {`Justin is an experienced full-stack engineer and founder with 13 years of experience. 
-              Justin has worked at start-ups his career, leading teams and developing processes to help scale
-              companies from 0 to hundreds of thousands of users. In his free time, Justin plays golf and simraces,
-              and is an organizer/founder at `}
-            <a href="https://ftr.events">FTR Events</a>
-          </p>
-        </div>
-      </div>
+      <TeamMembers />
     </section>
   );
 }
