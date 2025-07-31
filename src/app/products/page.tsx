@@ -1,3 +1,4 @@
+import { PageTitle } from "@/components/ui/page-title";
 import { ProductListings } from "@/components/ui/product-listings";
 
 export const metadata = {
@@ -8,7 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Products</h1>
+      <PageTitle title="Products" />
       <ProductListings />
     </section>
   );

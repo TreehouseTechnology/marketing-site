@@ -1,0 +1,179 @@
+---
+title: "Refactor: AWS Lambda contact form"
+publishedAt: 2025-07-31
+summary: How to publish an SSR compliant contact form using AWS
+author: Justin Makaila
+---
+In a [previous post](/blog/building-this-site), we covered the ways to build an API utilizing "API Route Handlers"
+and "Server Actions" in Next.js. In this post, we'll cover how to migrate those actions to AWS Lambda in order to
+deploy the site in an entirely SSR-compliant way, allowing for hosting via AWS S3 and CloudFront.
+
+## Contents
+
+- [Requirements](#requirements)
+- [Setting up a lambda](#lambda)
+- [Refactor](#refactor)
+- [Deployment](#deployment)
+- [Notes](#notes)
+
+## <span id="requirements">Requirements</span>
+
+- Refactor the existing `/api/email` route handler to work on AWS Lambda.
+- Refactor the `/contact` page server component to move the request to the client.
+
+## <span id="lambda">Setting up a lambda</span>
+
+_tldr; repository [here](https://github.com/TreehouseTechnology/treehouse-contact-lambda). Includes CI/D via Github Actions._
+
+### Overview
+
+First you need to configure a new lambda function. Brief instructions:
+	-	Go to AWS Lambda console → Create function
+	-	Name: sendContactEmail
+	-	Runtime: Node.js 22.X
+	-	Execution role: Create new with basic Lambda permissions (default, modify as needed)
+  - Additional configurations -> Function URL -> Enable
+    - _Note: In production, it's highly recommended to configure your lambda function behind an API gateway or otherwise. For the sake of this tutorial, we're opting for speed, not security._
+
+We already wrote most of what we need for the lambda in the previous post, so we won't spend too much time going over
+what we did or why.
+
+### The code
+
+```typescript
+import { APIGatewayProxyHandler } from "aws-lambda";
+import { treeifyError, z, ZodError } from "zod";
+import nodemailer from "nodemailer";
+
+// Define schema
+const ContactEmailSchema = z.object({
+  name: z.string(),
+  email: z.email(),
+  message: z.string(),
+});
+
+// Email utility
+const generateMessageBody = ({
+  name,
+  email,
+  message,
+}: {
+  name: string;
+  email: string;
+  message: string;
+}) => `
+  NAME: ${name}
+  EMAIL: ${email}
+  MESSAGE: "${message}"
+`;
+
+const transport = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.NODEMAILER_EMAIL,
+    pass: process.env.NODEMAILER_PASSWORD,
+  },
+});
+
+// Lambda entry point
+export const handler: APIGatewayProxyHandler = async (event) => {
+  try {
+    const body = JSON.parse(event.body || "{}");
+    const parsed = ContactEmailSchema.parse(body);
+
+    await transport.sendMail({
+      to: process.env.NODEMAILER_EMAIL,
+      from: process.env.NODEMAILER_EMAIL,
+      subject: `Contact form submission: ${parsed.name} (${parsed.email})`,
+      text: generateMessageBody(parsed),
+    });
+
+    return {
+      statusCode: 201,
+      body: JSON.stringify({ message: "Email sent" }),
+    };
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: "Invalid parameters provided.",
+          details: treeifyError(error),
+        }),
+      };
+    }
+
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error: "Internal Server Error",
+        details: error instanceof Error ? error.message : "Unknown",
+      }),
+    };
+  }
+};
+
+```
+
+If you cloned the [repo](https://github.com/TreehouseTechnology/treehouse-contact-lambda), you'll have the necessary tools and dependencies
+installed to build and zip the function for upload to lambda through the lambda UI, or rename/reconfigure the remote and have the process automated
+after configuring the necessary environment variables and secrets.
+
+To summarize:
+  - `pnpm build` or `npx tsc index.ts` to output `dist/`.
+  - `zip -r function.zip dist node_modules` to create `function.zip` to be uploaded to Lambda
+
+After uploading/deploying the function code, navigate to Configuration > Environment variables and define the email and password previously
+defined in the `.env` for the API/server action.
+
+## <span id="refactor">Refactor</span>
+
+To refactor the existing contact form component, we're going to create a `containers/` directory inside the `components/` folder.
+
+Optionally move the remaining "presentation" components to `components/ui/`.
+
+In React, containers are "smart" components. These components are responsible for orchestrating interactions between systems (networking, navigation, etc)
+to remove the complexity from the presentational components.
+
+Inside `containers/`, we're going to create a new file called `contact-form.tsx`:
+
+```typescript
+"use client";
+
+import { ComponentPropsWithoutRef, useCallback } from "react";
+import ContactFormUI from "../ui/contact-form";
+
+export function ContactForm() {
+  const onSubmitCallback: ComponentPropsWithoutRef<
+    typeof ContactFormUI
+  >["onSubmit"] = useCallback((formData) => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    };
+
+    fetch("{{YOUR_FUNCTION_URL_HERE}}", options)
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
+  }, []);
+
+  return <ContactFormUI onSubmit={onSubmitCallback} />;
+}
+
+export default ContactForm;
+
+```
+
+Replace `{{YOUR_FUNCTION_URL_HERE}}` with the function URL provided by the Lambda details page, or your API Gateway route.
+
+This component is a client component that issues a `POST` request against our newly configured lambda function when submit is invoked from the
+form component.
+
+## <span id="notes">Notes</span>
+
+In a bigger app, I would suggest to create a sort-of schema library for sharing the zod schema across projects. In this case, with a single endpoint,
+we're reducing complexity significantly by duplicating the schema. The debug process to decipher what's out of sync may take 5 minutes, at worst.

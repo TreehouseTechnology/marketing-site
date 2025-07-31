@@ -9,6 +9,11 @@ export function getBlogPosts() {
   );
 }
 
+export function getBlogPost(slug: string) {
+  let posts = getBlogPosts();
+  return posts.find((post) => post.slug === slug);
+}
+
 export function formatDate(date: string, includeRelative = false) {
   let currentDate = new Date();
   if (!date.includes("T")) {

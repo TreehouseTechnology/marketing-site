@@ -1,8 +1,18 @@
 import { ImageResponse } from "next/og";
+import { getBlogPost } from "../utils";
 
-export function GET(request: Request) {
-  let url = new URL(request.url);
-  let title = url.searchParams.get("title") || "Treehouse Technology";
+// Image metadata
+export const size = {
+  width: 1200,
+  height: 630,
+};
+
+export const contentType = "image/png";
+
+// Image generation
+export default async function Image({ params }: { params: { slug: string } }) {
+  const { metadata: { title = "FIXME: Post not found!" } = {} } =
+    getBlogPost(params.slug) || {};
 
   return new ImageResponse(
     (
@@ -13,10 +23,6 @@ export function GET(request: Request) {
           </h2>
         </div>
       </div>
-    ),
-    {
-      width: 1200,
-      height: 630,
-    }
+    )
   );
 }

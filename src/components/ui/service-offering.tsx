@@ -8,8 +8,8 @@ export function ServiceOffering({ title, items }: ServiceOfferingProps) {
     <div>
       <h2 className="font-semibold text-med mb-4 tracking-tighter">{title}</h2>
       <ul>
-        {items.map((item) => (
-          <li>- {item}</li>
+        {items.map((item, index) => (
+          <li key={`${item}-${index}`}>- {item}</li>
         ))}
       </ul>
     </div>

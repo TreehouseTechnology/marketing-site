@@ -1,4 +1,5 @@
 import ContactForm from "@/components/containers/contact-form";
+import { PageTitle } from "@/components/ui/page-title";
 
 export const metadata = {
   title: "Contact",
@@ -8,7 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Contact</h1>
+      <PageTitle title="Contact" />
       <p>Interested in working with us? Reach out!</p>
       <div className="mt-8">
         <ContactForm />

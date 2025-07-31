@@ -6,7 +6,8 @@ import { notFound } from "next/navigation";
 import { evaluate } from "@mdx-js/mdx";
 import { highlight } from "sugar-high";
 import { baseUrl } from "@/app/sitemap";
-import { formatDate, getBlogPosts } from "../utils";
+import { formatDate, getBlogPost, getBlogPosts } from "../utils";
+import { PageTitle } from "@/components/ui/page-title";
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
@@ -113,7 +114,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  let post = getBlogPosts().find((post) => post.slug === slug);
+  let post = getBlogPost(slug);
   if (!post) {
     return;
   }
@@ -126,7 +127,7 @@ export async function generateMetadata({ params }) {
   } = post.metadata;
   let ogImage = image
     ? image
-    : `${baseUrl}/og?title=${encodeURIComponent(title)}`;
+    : `${baseUrl}/${baseUrl}/blog/${post.slug}/opengraph-image`;
 
   return {
     title,
@@ -193,9 +194,9 @@ export default async function Blog({
           }),
         }}
       />
-      <h1 className="title font-semibold text-2xl tracking-tighter">
-        {post.metadata.title}
-      </h1>
+
+      <PageTitle title={post.metadata.title} />
+
       <h2>{post.metadata.author}</h2>
       <div className="flex justify-between items-center mt-2 mb-8 text-sm">
         <p className="text-sm text-neutral-600 dark:text-neutral-400">

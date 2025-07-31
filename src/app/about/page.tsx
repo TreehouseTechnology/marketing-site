@@ -1,3 +1,4 @@
+import { PageTitle } from "@/components/ui/page-title";
 import { TeamMembers } from "@/components/ui/team-members";
 
 export const metadata = {
@@ -9,7 +10,8 @@ export default function Page() {
   return (
     <section>
       <div>
-        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">About</h1>
+        <PageTitle title="About" />
+
         <p>{`Treehouse Technology was founded in 2023 with the goal of bringing 
       start-up agility to small and medium teams through real-world product development
       experience and processes.`}</p>

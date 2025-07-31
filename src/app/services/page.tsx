@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ServiceOffering from "@/components/ui/service-offering";
+import { PageTitle } from "@/components/ui/page-title";
 
 export const metadata = {
   title: "Services",
@@ -9,15 +10,13 @@ export const metadata = {
 export default function Page() {
   return (
     <section>
-      <h1 className="title font-semibold text-2xl mb-8 tracking-tighter">
-        Services
-      </h1>
+      <PageTitle title="Services" />
 
       <p>{`Treehouse Technology designs, develops, and delivers scalable, full-stack mobile and web applications
       tailored to your business needs. From MVPs to production-grade systems, we provide end-to-end technical 
       expertise to turn your ideas into high-quality software.`}</p>
 
-      <div className="flex flex-col gap-8 mt-8">
+      <div className="flex flex-col gap-8 mt-8 mb-8">
         <ServiceOffering
           title="Mobile App Development"
           items={[

@@ -16,28 +16,47 @@ function ContactForm({ onSubmit }: ContactFormProps) {
   });
 
   return (
-    <form action="mailto:justin@treehousetechnology.io" method="POST">
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-5">
-        <label htmlFor="name" className="mb-3 block text-base font-medium">
-          Subject
+        <label
+          htmlFor="name"
+          className="mb-3 block text-base font-medium text-black"
+        >
+          Full Name
         </label>
         <input
           type="text"
-          name="subject"
-          placeholder="subject"
+          placeholder="Full Name"
           className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
-          // {...register("subject", { required: true })}
+          {...register("name", { required: true })}
         />
       </div>
       <div className="mb-5">
-        <label htmlFor="message" className="mb-3 block text-base font-medium ">
+        <label
+          htmlFor="email"
+          className="mb-3 block text-base font-medium text-black"
+        >
+          Email Address
+        </label>
+        <input
+          type="email"
+          placeholder="example@domain.com"
+          className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
+          {...register("email", { required: true })}
+        />
+      </div>
+      <div className="mb-5">
+        <label
+          htmlFor="message"
+          className="mb-3 block text-base font-medium text-black"
+        >
           Message
         </label>
         <textarea
           rows={4}
-          placeholder="type your message"
+          placeholder="Type your message"
           className="w-full resize-none rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
-          {...register("body", { required: true })}
+          {...register("message", { required: true })}
         ></textarea>
       </div>
       <div>
