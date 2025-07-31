@@ -125,9 +125,7 @@ export async function generateMetadata({ params }) {
     summary: description,
     image,
   } = post.metadata;
-  let ogImage = image
-    ? image
-    : `${baseUrl}/${baseUrl}/blog/${post.slug}/opengraph-image`;
+  let ogImage = image ? image : `${baseUrl}/blog/${post.slug}/opengraph-image`;
 
   return {
     title,
