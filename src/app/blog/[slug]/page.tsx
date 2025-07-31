@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import * as runtime from "react/jsx-runtime";
 import Image from "next/image";
 import Link from "next/link";
@@ -164,8 +164,10 @@ export default async function Blog({
     return notFound();
   }
 
-  // Run the compiled code
-  const { default: MDXContent } = await evaluate(post.content, runtime);
+  const { default: MDXContent } = await evaluate(post.content, {
+    ...runtime,
+    Fragment,
+  });
 
   return (
     <section>

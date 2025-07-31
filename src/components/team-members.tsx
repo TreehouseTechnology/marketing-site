@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import * as runtime from "react/jsx-runtime";
 import { evaluate } from "@mdx-js/mdx";
 import { getTeam } from "@/app/about/utils";
@@ -11,7 +12,10 @@ interface TeamMemberProps {
 }
 
 async function TeamMember({ image, name, role, description }: TeamMemberProps) {
-  const { default: MDXContent } = await evaluate(description, runtime);
+  const { default: MDXContent } = await evaluate(description, {
+    ...runtime,
+    Fragment,
+  });
 
   return (
     <div className="grid grid-flow-col grid-rows-2 gap-4">

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import * as runtime from "react/jsx-runtime";
 import { evaluate } from "@mdx-js/mdx";
 import { getProductListings } from "@/app/products/utils";
@@ -15,7 +16,10 @@ async function ProductListing({
   linkText,
   description,
 }: ProductListingProps) {
-  const { default: MDXContent } = await evaluate(description, runtime);
+  const { default: MDXContent } = await evaluate(description, {
+    ...runtime,
+    Fragment,
+  });
 
   return (
     <div>
