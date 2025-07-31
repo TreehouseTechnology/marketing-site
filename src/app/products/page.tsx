@@ -1,4 +1,4 @@
-import { ProductListings } from "@/components/product-listings";
+import { ProductListings } from "@/components/ui/product-listings";
 
 export const metadata = {
   title: "Products",

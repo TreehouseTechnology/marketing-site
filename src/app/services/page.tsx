@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ServiceOffering from "@/components/service-offering";
+import ServiceOffering from "@/components/ui/service-offering";
 
 export const metadata = {
   title: "Services",

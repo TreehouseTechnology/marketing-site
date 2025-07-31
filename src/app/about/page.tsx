@@ -1,4 +1,4 @@
-import { TeamMembers } from "@/components/team-members";
+import { TeamMembers } from "@/components/ui/team-members";
 
 export const metadata = {
   title: "About",
