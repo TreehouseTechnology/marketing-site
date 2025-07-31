@@ -15,15 +15,15 @@ const generateMessageBody: GenerateMessageBodyFn = ({
   MESSAGE: "${message}"
   `;
 
-export async function sendEmail(input: ContactEmailType) {
-  const transport = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.NODEMAILER_EMAIL,
-      pass: process.env.NODEMAILER_PASSWORD,
-    },
-  });
+const transport = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.NODEMAILER_EMAIL,
+    pass: process.env.NODEMAILER_PASSWORD,
+  },
+});
 
+export async function sendEmail(input: ContactEmailType) {
   // Promise-ify the send action
   return new Promise((resolve, reject) => {
     transport.sendMail(
