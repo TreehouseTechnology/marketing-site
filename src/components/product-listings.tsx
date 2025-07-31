@@ -19,7 +19,7 @@ async function ProductListing({
 
   return (
     <div>
-      <h3 className="font-semibold text-med mb-4">
+      <h3 className="font-semibold text-med mb-4 tracking-tighter">
         {title} (<a href={link}>{linkText}</a>)
       </h3>
       <MDXContent />
@@ -31,7 +31,7 @@ export function ProductListings() {
   const allListings = getProductListings();
 
   return (
-    <div>
+    <div className="flex flex-col gap-8 mt-8">
       {allListings.map((product, index) => (
         <ProductListing
           key={`${product.metadata.title}-${index}`}

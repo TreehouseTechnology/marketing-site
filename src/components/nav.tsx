@@ -7,14 +7,11 @@ const navItems = {
   "/about": {
     name: "about",
   },
-  "/products": {
-    name: "products",
-  },
-  // "/testimonials": {
-  //   name: "testimonials",
-  // },
   "/services": {
     name: "services",
+  },
+  "/products": {
+    name: "products",
   },
   "/contact": {
     name: "contact",

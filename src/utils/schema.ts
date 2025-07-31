@@ -15,6 +15,7 @@ export type ContactEmailType = z.infer<typeof ContactEmailSchema>;
 export const TeamMetadataSchema = z.object({
   name: z.string(),
   role: z.string(),
+  image: z.string(),
 });
 
 export const BlogPostMetadataSchema = z.object({
