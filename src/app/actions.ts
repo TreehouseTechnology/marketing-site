@@ -1,7 +1,11 @@
 "use server";
 
 import nodemailer from "nodemailer";
+import { invariant } from "ts-invariant";
 import { ContactEmailType } from "@/utils/schema";
+
+invariant(process.env.NODEMAILER_EMAIL, "No email configured");
+invariant(process.env.NODEMAILER_PASSWORD, "No email password configured");
 
 type GenerateMessageBodyFn = (input: ContactEmailType) => string;
 
