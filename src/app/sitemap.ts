@@ -7,6 +7,7 @@ export default async function sitemap() {
     "/blog",
     "/contact",
     "/products",
+    "/services",
     "/testimonials",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
