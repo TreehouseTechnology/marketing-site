@@ -8,12 +8,12 @@ export type FormData = ContactEmailType;
 
 interface FormLabelProps {
   label: string;
-  key: keyof FormData;
+  formKey: keyof FormData;
 }
 
-function FormLabel({ label, key }: FormLabelProps) {
+function FormLabel({ label, formKey }: FormLabelProps) {
   return (
-    <label htmlFor={key} className="mb-3 block text-base font-medium">
+    <label htmlFor={formKey} className="mb-3 block text-base font-medium">
       {label}
     </label>
   );
@@ -82,7 +82,7 @@ function ContactForm({
   return !isSubmitted ? (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-5">
-        <FormLabel key="name" label="Full Name" />
+        <FormLabel formKey="name" label="Full Name" />
         <input
           disabled={isPending}
           type="text"
@@ -93,7 +93,7 @@ function ContactForm({
         {errors.name && <FieldError message={errors.name.message} />}
       </div>
       <div className="mb-5">
-        <FormLabel key="email" label="Email Address" />
+        <FormLabel formKey="email" label="Email Address" />
         <input
           disabled={isPending}
           type="email"
@@ -104,7 +104,7 @@ function ContactForm({
         {errors.email && <FieldError message={errors.email.message} />}
       </div>
       <div className="mb-5">
-        <FormLabel key="message" label="Message" />
+        <FormLabel formKey="message" label="Message" />
         <textarea
           disabled={isPending}
           rows={4}
