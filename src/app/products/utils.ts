@@ -6,5 +6,5 @@ export function getProductListings() {
   return getMDXData(
     path.join(process.cwd(), "src", "app", "products", "listings"),
     ProductMetadataSchema
-  );
+  ).filter(({ metadata }) => !metadata.wip);
 }

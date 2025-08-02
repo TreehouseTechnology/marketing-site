@@ -32,4 +32,5 @@ export const ProductMetadataSchema = z.object({
   title: z.string(),
   link: z.url().optional(),
   linkText: z.string().default("view"),
+  wip: z.boolean().default(false),
 });

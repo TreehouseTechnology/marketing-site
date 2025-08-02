@@ -6,6 +6,7 @@ frontend:
         - npx pnpm install
     build:
       commands:
+        - env | grep -e NODEMAILER_EMAIL -e NODEMAILER_PASSWORD >> .env.production
         - npx pnpm build
   artifacts:
     baseDirectory: .next
