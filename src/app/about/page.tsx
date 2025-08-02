@@ -1,7 +1,8 @@
+import { Metadata } from "next";
 import { PageTitle } from "@/components/ui/page-title";
 import { TeamMembers } from "@/components/ui/team-members";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "About",
   description: "About Treehouse Technology.",
 };

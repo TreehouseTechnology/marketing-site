@@ -1,7 +1,8 @@
+import { Metadata } from "next";
 import { BlogPosts } from "@/components/ui/blog-posts";
 import { PageTitle } from "@/components/ui/page-title";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Blog",
   description: "Thoughts and observations.",
 };
