@@ -1,7 +1,8 @@
 import ContactForm from "@/components/containers/contact-form";
 import { PageTitle } from "@/components/ui/page-title";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Contact",
   description: "Contact Treehouse Technology.",
 };

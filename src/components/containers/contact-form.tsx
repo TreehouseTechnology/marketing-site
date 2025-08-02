@@ -1,27 +1,36 @@
 "use client";
 
-import { ComponentPropsWithoutRef, useCallback } from "react";
+import { ComponentPropsWithoutRef, useCallback, useState } from "react";
 import ContactFormUI from "../ui/contact-form";
+import { sendEmail } from "@/app/actions";
 
 export function ContactForm() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const onSubmitCallback: ComponentPropsWithoutRef<
     typeof ContactFormUI
   >["onSubmit"] = useCallback((formData) => {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+    const submitHandler = async () => {
+      try {
+        setIsPending(true);
+        await sendEmail(formData);
+        setIsSubmitted(true);
+      } catch (error) {
+      } finally {
+        setIsPending(false);
+      }
     };
 
-    fetch("https://api.treehousetechnology.io/email", options)
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err));
+    submitHandler();
   }, []);
 
-  return <ContactFormUI onSubmit={onSubmitCallback} />;
+  return (
+    <ContactFormUI
+      isPending={isPending}
+      isSubmitted={isSubmitted}
+      onSubmit={onSubmitCallback}
+    />
+  );
 }
 
 export default ContactForm;

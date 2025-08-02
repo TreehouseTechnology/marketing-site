@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@hookform/resolvers':
         specifier: ^5.2.1
-        version: 5.2.1(react-hook-form@7.61.1(react@18.2.0))
+        version: 5.2.1(react-hook-form@7.62.0(react@19.1.1))
       '@mdx-js/mdx':
         specifier: ^3.1.0
         version: 3.1.0(acorn@8.15.0)
@@ -19,37 +19,31 @@ importers:
         version: 4.0.0-alpha.13(postcss@8.5.6)
       geist:
         specifier: 1.4.2
-        version: 1.4.2(next@15.4.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
+        version: 1.4.2(next@15.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       next:
         specifier: ^15.4.5
-        version: 15.4.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 15.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       nodemailer:
         specifier: ^7.0.5
         version: 7.0.5
       postcss:
         specifier: ^8.4.35
         version: 8.5.6
-      prettier:
-        specifier: ^2.7.1
-        version: 2.8.8
       react:
-        specifier: ^18.2.0
-        version: 18.2.0
+        specifier: ^19.1.1
+        version: 19.1.1
       react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
+        specifier: ^19.1.1
+        version: 19.1.1(react@19.1.1)
       react-hook-form:
-        specifier: ^7.61.1
-        version: 7.61.1(react@18.2.0)
+        specifier: ^7.62.0
+        version: 7.62.0(react@19.1.1)
       sugar-high:
         specifier: ^0.6.0
         version: 0.6.1
       tailwindcss:
         specifier: 4.0.0-alpha.13
         version: 4.0.0-alpha.13
-      typescript:
-        specifier: 5.3.3
-        version: 5.3.3
       zod:
         specifier: ^4.0.13
         version: 4.0.14
@@ -61,11 +55,17 @@ importers:
         specifier: ^6.4.17
         version: 6.4.17
       '@types/react':
-        specifier: ^18.2.55
-        version: 18.2.55
+        specifier: ^19.1.9
+        version: 19.1.9
       '@types/react-dom':
-        specifier: ^18.2.19
-        version: 18.2.19
+        specifier: ^19.1.7
+        version: 19.1.7(@types/react@19.1.9)
+      prettier:
+        specifier: ^2.7.1
+        version: 2.8.8
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
 
 packages:
 
@@ -353,17 +353,13 @@ packages:
   '@types/nodemailer@6.4.17':
     resolution: {integrity: sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww==}
 
-  '@types/prop-types@15.7.15':
-    resolution: {integrity: sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==}
+  '@types/react-dom@19.1.7':
+    resolution: {integrity: sha512-i5ZzwYpqjmrKenzkoLM2Ibzt6mAsM7pxB6BCIouEVVmgiqaMj1TjaK7hnA36hbW5aZv20kx7Lw6hWzPWg0Rurw==}
+    peerDependencies:
+      '@types/react': ^19.0.0
 
-  '@types/react-dom@18.2.19':
-    resolution: {integrity: sha512-aZvQL6uUbIJpjZk4U8JZGbau9KDeAwMfmhyWorxgBkqDIEf6ROjRozcmPIicqsUwPUjbkDfHKgGee1Lq65APcA==}
-
-  '@types/react@18.2.55':
-    resolution: {integrity: sha512-Y2Tz5P4yz23brwm2d7jNon39qoAtMMmalOQv6+fEFt1mT+FcM3D841wDpoUvFXhaYenuROCy3FZYqdTjM7qVyA==}
-
-  '@types/scheduler@0.26.0':
-    resolution: {integrity: sha512-WFHp9YUJQ6CKshqoC37iOlHnQSmxNc795UhB26CyBBttrN9svdIrUjl/NjnNmfcwtncN0h/0PPAFWv9ovP8mLA==}
+  '@types/react@19.1.9':
+    resolution: {integrity: sha512-WmdoynAX8Stew/36uTSVMcLJJ1KRh6L3IZRx1PZ7qJtBqT3dYTgyDTx8H1qoRghErydW7xw9mSJ3wS//tCRpFA==}
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
@@ -535,9 +531,6 @@ packages:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
 
-  js-tokens@4.0.0:
-    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
-
   lightningcss-darwin-arm64@1.30.1:
     resolution: {integrity: sha512-c8JK7hyE65X1MHMN+Viq9n11RRC7hgin3HhYKhrMyaXflk5GVplZ60IxyoVtzILeKr+xAJwg6zK6sjTBJ0FKYQ==}
     engines: {node: '>= 12.0.0'}
@@ -604,10 +597,6 @@ packages:
 
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
-
-  loose-envify@1.4.0:
-    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
-    hasBin: true
 
   markdown-extensions@2.0.0:
     resolution: {integrity: sha512-o5vL7aDWatOTX8LzaS1WMoaoxIiLRQJuIKKe2wAw6IeULDHaqbiqiggmx+pKvZDb1Sj+pE46Sn1T7lCqfFtg1Q==}
@@ -795,19 +784,19 @@ packages:
   property-information@7.1.0:
     resolution: {integrity: sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==}
 
-  react-dom@18.2.0:
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
+  react-dom@19.1.1:
+    resolution: {integrity: sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==}
     peerDependencies:
-      react: ^18.2.0
+      react: ^19.1.1
 
-  react-hook-form@7.61.1:
-    resolution: {integrity: sha512-2vbXUFDYgqEgM2RcXcAT2PwDW/80QARi+PKmHy5q2KhuKvOlG8iIYgf7eIlIANR5trW9fJbP4r5aub3a4egsew==}
+  react-hook-form@7.62.0:
+    resolution: {integrity: sha512-7KWFejc98xqG/F4bAxpL41NB3o1nnvQO1RWZT3TqRZYL8RryQETGfEdVnJN2fy1crCiBLLjkRBVK05j24FxJGA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
-  react@18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
+  react@19.1.1:
+    resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
     engines: {node: '>=0.10.0'}
 
   read-cache@1.0.0:
@@ -844,8 +833,8 @@ packages:
     engines: {node: '>= 0.4'}
     hasBin: true
 
-  scheduler@0.23.2:
-    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
+  scheduler@0.26.0:
+    resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
 
   semver@7.7.2:
     resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
@@ -959,10 +948,10 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@hookform/resolvers@5.2.1(react-hook-form@7.61.1(react@18.2.0))':
+  '@hookform/resolvers@5.2.1(react-hook-form@7.62.0(react@19.1.1))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.61.1(react@18.2.0)
+      react-hook-form: 7.62.0(react@19.1.1)
 
   '@img/sharp-darwin-arm64@0.34.3':
     optionalDependencies:
@@ -1194,19 +1183,13 @@ snapshots:
     dependencies:
       '@types/node': 20.11.17
 
-  '@types/prop-types@15.7.15': {}
-
-  '@types/react-dom@18.2.19':
+  '@types/react-dom@19.1.7(@types/react@19.1.9)':
     dependencies:
-      '@types/react': 18.2.55
+      '@types/react': 19.1.9
 
-  '@types/react@18.2.55':
+  '@types/react@19.1.9':
     dependencies:
-      '@types/prop-types': 15.7.15
-      '@types/scheduler': 0.26.0
       csstype: 3.1.3
-
-  '@types/scheduler@0.26.0': {}
 
   '@types/unist@2.0.11': {}
 
@@ -1331,9 +1314,9 @@ snapshots:
 
   function-bind@1.1.2: {}
 
-  geist@1.4.2(next@15.4.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
+  geist@1.4.2(next@15.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
     dependencies:
-      next: 15.4.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      next: 15.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
 
   hasown@2.0.2:
     dependencies:
@@ -1406,8 +1389,6 @@ snapshots:
 
   is-plain-obj@4.1.0: {}
 
-  js-tokens@4.0.0: {}
-
   lightningcss-darwin-arm64@1.30.1:
     optional: true
 
@@ -1454,10 +1435,6 @@ snapshots:
       lightningcss-win32-x64-msvc: 1.30.1
 
   longest-streak@3.1.0: {}
-
-  loose-envify@1.4.0:
-    dependencies:
-      js-tokens: 4.0.0
 
   markdown-extensions@2.0.0: {}
 
@@ -1770,15 +1747,15 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  next@15.4.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next@15.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       '@next/env': 15.4.5
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001731
       postcss: 8.4.31
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      styled-jsx: 5.1.6(react@18.2.0)
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+      styled-jsx: 5.1.6(react@19.1.1)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.4.5
       '@next/swc-darwin-x64': 15.4.5
@@ -1836,19 +1813,16 @@ snapshots:
 
   property-information@7.1.0: {}
 
-  react-dom@18.2.0(react@18.2.0):
+  react-dom@19.1.1(react@19.1.1):
     dependencies:
-      loose-envify: 1.4.0
-      react: 18.2.0
-      scheduler: 0.23.2
+      react: 19.1.1
+      scheduler: 0.26.0
 
-  react-hook-form@7.61.1(react@18.2.0):
+  react-hook-form@7.62.0(react@19.1.1):
     dependencies:
-      react: 18.2.0
+      react: 19.1.1
 
-  react@18.2.0:
-    dependencies:
-      loose-envify: 1.4.0
+  react@19.1.1: {}
 
   read-cache@1.0.0:
     dependencies:
@@ -1921,9 +1895,7 @@ snapshots:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
-  scheduler@0.23.2:
-    dependencies:
-      loose-envify: 1.4.0
+  scheduler@0.26.0: {}
 
   semver@7.7.2:
     optional: true
@@ -1982,10 +1954,10 @@ snapshots:
     dependencies:
       inline-style-parser: 0.2.4
 
-  styled-jsx@5.1.6(react@18.2.0):
+  styled-jsx@5.1.6(react@19.1.1):
     dependencies:
       client-only: 0.0.1
-      react: 18.2.0
+      react: 19.1.1
 
   sugar-high@0.6.1: {}
 

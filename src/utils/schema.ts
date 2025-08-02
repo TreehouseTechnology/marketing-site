@@ -2,11 +2,13 @@ import z from "zod/v4";
 
 // API Schema
 
-export const ContactEmailSchema = z.object({
-  name: z.string("Name is required."),
-  email: z.email("Email is required."),
-  message: z.string().nonempty("Message cannot be empty."),
-});
+export const ContactEmailSchema = z
+  .strictObject({
+    name: z.string().trim(),
+    email: z.email().trim(),
+    message: z.string().trim(),
+  })
+  .required();
 
 export type ContactEmailType = z.infer<typeof ContactEmailSchema>;
 
