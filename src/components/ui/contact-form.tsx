@@ -62,12 +62,14 @@ function LoadingSpinner() {
 export interface ContactFormProps {
   isPending?: boolean;
   isSubmitted?: boolean;
+  hasSubmissionError?: boolean;
   onSubmit: (data: FormData) => void;
 }
 
 function ContactForm({
   isPending = true,
   isSubmitted = false,
+  hasSubmissionError = false,
   onSubmit,
 }: ContactFormProps) {
   const {
@@ -122,6 +124,9 @@ function ContactForm({
           {isPending && <LoadingSpinner />}
           Submit
         </button>
+        {hasSubmissionError && (
+          <FieldError message="There was an error processing your submission. Please try again." />
+        )}
       </div>
     </form>
   ) : (
