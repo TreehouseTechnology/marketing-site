@@ -37,6 +37,10 @@ export async function sendEmail(input: ContactEmailType): Promise<boolean> {
         if (!error) {
           resolve(true);
         } else {
+          console.log(
+            "There was an error in the sendEmail action:",
+            error.message
+          );
           reject(error.message);
         }
       }

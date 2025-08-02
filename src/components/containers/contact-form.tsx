@@ -21,7 +21,13 @@ export function ContactForm() {
         setIsSubmitted(true);
       } catch (error) {
         console.log("There was an error on the submission:", error);
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
+
         setHasSubmissionError(true);
+        // Re-throw the error in an attempt to get cloudwatch to pick it up
+        throw error;
       } finally {
         setIsPending(false);
       }
