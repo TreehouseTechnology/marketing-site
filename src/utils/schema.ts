@@ -26,6 +26,7 @@ export const BlogPostMetadataSchema = z.object({
   summary: z.string(),
   author: z.string(),
   image: z.url().optional(),
+  postId: z.string().optional(),
 });
 
 export const ProductMetadataSchema = z.object({

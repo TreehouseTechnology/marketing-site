@@ -8,6 +8,7 @@ import { highlight } from "sugar-high";
 import { baseUrl } from "@/app/sitemap";
 import { formatDate, getBlogPost, getBlogPosts } from "../utils";
 import { PageTitle } from "@/components/ui/page-title";
+import { BskyPost } from "@/components/containers/bsky-post";
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
@@ -203,6 +204,14 @@ export default async function Blog({
       </div>
       <article className="prose">
         <MDXContent components={components} />
+        {post.metadata.postId && (
+          <BskyPost
+            limit={10}
+            did="did:plc:xbair6rpryzlccndpvnb3hpq"
+            handle="treehousetechnology.io"
+            postId={post.metadata.postId}
+          />
+        )}
       </article>
     </section>
   );
