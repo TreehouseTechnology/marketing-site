@@ -6,7 +6,10 @@ export function parseFrontMatter<M extends z.ZodRawShape>(
 ) {
   let frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
   let match = frontmatterRegex.exec(fileContent);
-  let frontMatterBlock = match![1];
+  if (!match) {
+    throw new Error("No frontmatter found in file content.");
+  }
+  let frontMatterBlock = match[1];
   let content = fileContent.replace(frontmatterRegex, "").trim();
   let frontMatterLines = frontMatterBlock.trim().split("\n");
 
