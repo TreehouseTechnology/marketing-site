@@ -51,8 +51,7 @@ as necessary.
 
 ### Infrastructure
 
-- Deploy via Github Actions
-- Host on AWS (Route 53, CloudFront, EC2/S3)
+- Deploy and host on AWS Amplify.
 
 ## <span id="implementation">Implementation</span>
 
@@ -292,3 +291,22 @@ We pass the parameters to the `sendEmail` function from `src/app/actions`, ensur
 
 If parameter parsing fails, we have an error case in the `catch` block, with all other errors (those inside `sendEmail`) being handled with a
 generic response.
+
+## <span id="deployment">Deployment</span>
+
+Deploying the site was trivial with AWS Amplify. All we had to do was "Create a new app" from the [Amplify dashboard](console.aws.amazon.com/amplify/apps),
+hook up the Github repository, and let Amplify handle everything.
+
+The site is automatically deployed when changes are pushed to the connected branch, enabling us to move quickly and change
+things without worrying about manual deploy steps, which is ideal for small team scenarios.
+
+Amplify hosting is fairly cheap compared to alternatives, and without the need for a back-end or database for this site, made it the
+ideal candidate.
+
+## Conclusion
+
+Building the site in Next.js and distributing via AWS Amplify has allowed us to create our digital presence in a weekend, while
+ensuring that the things that change on the site (product and service offerings, team, blog, testimonials) can be updated quickly (via MDX rendering)
+and we were able to achieve a contact form without spinning up an extra API.
+
+In another post, we do cover refactoring to utilize API Gateway and AWS Lambda for the contact form, but that's for the sake of exercise. Check that post out [here](https://treehousetechnology.io/blog/building-contact-form).

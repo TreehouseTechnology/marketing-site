@@ -29,7 +29,7 @@ const transport = nodemailer.createTransport({
 
 export async function sendEmail(input: ContactEmailType): Promise<boolean> {
   // Promise-ify the send action
-  const result = await new Promise<boolean>((resolve, reject) => {
+  return await new Promise<boolean>((resolve, reject) => {
     transport.sendMail(
       {
         to: process.env.NODEMAILER_EMAIL,
@@ -46,6 +46,4 @@ export async function sendEmail(input: ContactEmailType): Promise<boolean> {
       }
     );
   });
-
-  return result;
 }
