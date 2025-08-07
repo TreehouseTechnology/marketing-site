@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npx pnpm install
+    build:
+      commands:
+        - env | grep -e NODEMAILER_EMAIL -e NODEMAILER_PASSWORD >> .env
+        - echo "NODEMAILER_PASSWORD=$(aws ssm get-parameter --name '/amplify/shared/d1p7du82383a0y/NODEMAILER_PASSWORD' --with-decryption --query 'Parameter.Value' --output text)" >> .env
+        - npx pnpm build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - .next/cache/**/*
+      - node_modules/**/*

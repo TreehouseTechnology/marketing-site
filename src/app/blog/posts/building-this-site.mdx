@@ -1,0 +1,312 @@
+---
+title: "Building this site"
+publishedAt: "2025-07-29"
+summary: "How we built this site."
+author: Justin Makaila
+postId: 3lvrqtv52322k
+---
+
+Many businesses benefit with a digital presence, whether that be an app for providing a service, or a website for delivering information to customers.
+Being a software development consultancy, Treehouse is no different. We wanted a site to provide information to potential and existing customers, showcase
+past and present projects, and generate leads (or even just conversation!) for potential customers, and engineers or designers interested in joining the team.
+
+Given that we are a small team of 1 (I also think it's weird to keep typing 'we'), it was in our interest to move quickly and use what frameworks and
+templates we could find to deliver a site that met our needs, while also being able to showcase and highlight our development practices.
+
+The site is built using Next.js and hosted on AWS. It's an overkill stack for the use-case and feature set, but it serves as an example
+of the output of the company, and creates a playground for React development and CI/D integrations in a production environment.
+
+## TLDR;
+
+We needed a site, fast. We leveraged as many OSS templates and frameworks as we could to get up-and-running, while still allowing for flexible development
+for new features going forward.
+
+- The source for the site can be found [here](https://github.com/treehousetechnology/marketing-site).
+- The blog post for email implementation is [here](https://medium.com/@abilsavio/email-contact-form-using-nextjs-app-router-60c29fe70644).
+- The template from Vercel/Next.js can be found [here](https://vercel.com/templates/portfolio/nextjs-portfolio)
+
+## Contents
+
+- [Requirements](#requirements)
+- [Implementation](#implementation)
+  - [Developing components](#developing-ui)
+  - [Developing the API](#developing-api)
+    - [API route handlers](#route-handlers)
+    - [Server actions](#server-actions)
+- [Deployment](#deployment)
+
+## <span id="requirements">Requirements</span>
+
+Our requirements for a marketing site were simple. Provide a couple pages to showcase the company's offerings, products, and team, and values.
+It would also be interesting to utilize modern development frameworks to serve as a micro-environment for testing processes and technologies
+as necessary.
+
+### Pages
+
+- About: Introduce people to our team
+- Product Showcase: Present past and existing products to a wider audience
+- Testimonials: Let our work speak for itself
+- Blog: Share thoughts, ideas, and what we've learned around development and processes
+- Contact: Let folks reach out to engage
+
+### Infrastructure
+
+- Deploy and host on AWS Amplify.
+
+## <span id="implementation">Implementation</span>
+
+The base template came with a home page, a blog overview, and a blog post page. It has support for an rss feed, sitemap, and metadata.
+That is a good start, but we needed to add a couple more pages:
+
+- `/about`
+- `/services`
+- `/products`
+- `/contact`
+- `/testimonials`
+
+Adding these pages were as simple as adding folders matching the desired route path: `/about` needed a new folder in the `app/` 
+directory named `about` and a new `page.tsx`, rinse repeat.
+
+The provided layout component was good for our needs, providing a navigation bar, and footer.
+
+## <span id="developing-ui">Component development</span>
+
+Once the basic structure for the site was in place, it was time to start building the components for the one-off pages.
+
+Many of the components are very straightforward, so we'll save you the time and focus on the most interactive component, the contact form.
+
+### Contact Form
+
+The contact form's responsibilities are to aggregate information from the user, their name, email address, and message, and invoke a handler
+on submit. In the past, we've utilized [jsonforms](https://jsonforms.io/), but decided to go with [react-hook-form](https://react-hook-form.com/)
+to utilize it's error handling and display with zod (you'll see why in the API section).
+
+#### Schema definition
+
+The first thing to do was to define the form's schema to effectively utilize typescript. Defining the schema with `zod` is trivial:
+
+`src/utils/schema.ts`
+```typescript
+import z from "zod/v4";
+
+export const ContactEmailSchema = z.object({
+  name: z.string("Name is required."),
+  email: z.email("Email is required."),
+  message: z.string().nonempty("Message cannot be empty."),
+});
+
+export type ContactEmailType = z.infer<typeof ContactEmailSchema>;
+```
+
+In the snippet, we define a `zod` object, which requires name, email, and message, as a string, email, and nonempty string, respectively.
+We then export a type representing that schema for usage in typescript and function definitions.
+
+#### Client component definition
+
+The [form component](https://gist.github.com/ByteCrak07/64cbe56d338a073d897c2db64e358b3d) was initially developed by Abil Savio ([@bytecrak07](https://gist.github.com/ByteCrak07)).
+We modified the component they provided to utilize zod instead. Only the modifications are highlighted below:
+
+`src/components/contact-form.tsx`
+```typescript
+import { ContactEmailType, ContactEmailSchema as schema } from "@/utils/schema";
+
+export type FormData = ContactEmailType;
+
+export interface ContactFormProps {
+  onSubmit: (data: FormData) => void;
+}
+
+function ContactForm({ onSubmit }: ContactFormProps) {
+  const { register, handleSubmit } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  //... original implementation
+}
+```
+
+By utilizing `zod` for type resolution, we can provide custom error messages to the UI, and ensure that the client and server are communicating using the same schema.
+
+We also define an explicit props definition for the component so we can inject custom handling of form data, rather than tying the component to a specific implementation.
+
+#### Server component definition
+
+As mentioned above, we created a `src/app/contact/page.tsx` file to house the `/contact` page:
+
+`src/app/contact/page.tsx`
+```typescript
+import ContactForm from "@/components/contact-form";
+import { sendEmail } from "../actions";
+
+export const metadata = {
+  title: "Contact",
+  description: "Contact Treehouse Technology.",
+};
+
+export default function Page() {
+  return (
+    <section>
+      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Contact</h1>
+      <p>Interested in working with us? Reach out!</p>
+      <ContactForm onSubmit={sendEmail} />
+    </section>
+  );
+}
+```
+
+In the server component, we import the `sendEmail` action and pass it to the client component. The definition for the `sendEmail` action is covered in the next section.
+
+## <span id="developing-api">Building out the API</span>
+
+An interesting bit that appeared during development was the ability to showcase how to utilize
+route handlers in a typesafe way via patterns, and also showcase a cool feature of Next.js: server actions.
+
+Our API requirements were simple. The contact form needed to send emails to my inbox for categorization and follow-up. We didn't need an involved CRM,
+or even an involved mail sender. We could achieve the goal with minimal effort linking a Gmail account and utilizing `nodemailer`.
+
+### <span id="server-actions">Server Actions</span>
+
+The email send action correlates to the schema we defined for the contact form. Just take the same fields and send them to a function to send an email.
+
+We start by creating an `actions.ts` file and adding the implementation:
+
+`src/app/actions.ts`
+```typescript
+"use server";
+
+import nodemailer from "nodemailer";
+import { ContactEmailType } from "@/utils/schema";
+
+type GenerateMessageBodyFn = (input: ContactEmailType) => string;
+
+const generateMessageBody: GenerateMessageBodyFn = ({
+  name,
+  email,
+  message,
+}) => `
+  NAME: ${name}
+  EMAIL: ${email}
+  MESSAGE: "${message}"
+  `;
+
+export async function sendEmail(input: ContactEmailType) {
+  // Create a transport for sending the email
+  const transport = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.NODEMAILER_EMAIL,
+      pass: process.env.NODEMAILER_PASSWORD,
+    },
+  });
+
+  // Promise-ify the send action
+  return new Promise((resolve, reject) => {
+    transport.sendMail(
+      {
+        to: process.env.NODEMAILER_EMAIL,
+        from: process.env.NODEMAILER_EMAIL,
+        subject: `Contact form submission: ${input.name} (${input.email})`,
+        text: generateMessageBody(input),
+      },
+      (error) => {
+        if (!error) {
+          resolve(true);
+        } else {
+          reject(error.message);
+        }
+      }
+    );
+  });
+}
+
+```
+
+You should notice that the action is utilizing the same type defined in `src/utils/schema.ts`. This action is passed directly to the client component from the server-rendered page,
+ensuring that the submission of the form is type-safe.
+
+### <span id="route-handlers">API Route Handlers</span>
+
+An alternative to using server actions is to create a public API in your Next.js app via route handlers. The client component explicitly makes an API request to the route,
+rather than an implicit network request via server actions. Both achieve the same goal, and in our use-case the point is moot, but worth covering for use-cases where public APIs
+may be utilized by external services (i.e. Discord or Slack integrations).
+
+Create a new file in your `app/`, `src/app/api/email/route.ts`. This creates the route `/api/email`, which will receive `POST` requests with `JSON` data to create an email message.
+
+`src/app/api/email/route.ts`
+```typescript
+import { NextRequest, NextResponse } from "next/server";
+import { ZodError, treeifyError } from "zod/v4";
+import { ContactEmailSchema } from "@/utils/schema";
+import { sendEmail } from "@/app/actions";
+
+export async function POST(request: NextRequest) {
+  try {
+    const parameters = ContactEmailSchema.parse(await request.json());
+
+    await sendEmail(parameters);
+
+    /**
+     * Email sent successfully
+     */
+    return NextResponse.json(
+      {
+        message: "Email sent",
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    /**
+     * Handle parameter parsing errors
+     */
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        {
+          error: "Invalid parameters provided.",
+          details: treeifyError(error),
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+
+    /**
+     * Handle all other errors
+     */
+    return NextResponse.json(
+      {
+        error: "Internal Server Error",
+        details: error instanceof Error ? error.message : "Unknown",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+}
+```
+
+In the above snippet, we utilize the `ContactEmailSchema` from `src/utils/schema` to parse the parameters from the request body.
+We pass the parameters to the `sendEmail` function from `src/app/actions`, ensuring type-safe function invocation.
+
+If parameter parsing fails, we have an error case in the `catch` block, with all other errors (those inside `sendEmail`) being handled with a
+generic response.
+
+## <span id="deployment">Deployment</span>
+
+Deploying the site was trivial with AWS Amplify. All we had to do was "Create a new app" from the [Amplify dashboard](console.aws.amazon.com/amplify/apps),
+hook up the Github repository, and let Amplify handle everything.
+
+The site is automatically deployed when changes are pushed to the connected branch, enabling us to move quickly and change
+things without worrying about manual deploy steps, which is ideal for small team scenarios.
+
+Amplify hosting is fairly cheap compared to alternatives, and without the need for a back-end or database for this site, made it the
+ideal candidate.
+
+## Conclusion
+
+Building the site in Next.js and distributing via AWS Amplify has allowed us to create our digital presence in a weekend, while
+ensuring that the things that change on the site (product and service offerings, team, blog, testimonials) can be updated quickly (via MDX rendering)
+and we were able to achieve a contact form without spinning up an extra API.
+
+In another post, we do cover refactoring to utilize API Gateway and AWS Lambda for the contact form, but that's for the sake of exercise. Check that post out [here](https://treehousetechnology.io/blog/building-contact-form).
