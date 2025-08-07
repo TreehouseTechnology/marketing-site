@@ -67,7 +67,7 @@ export interface ContactFormProps {
 }
 
 function ContactForm({
-  isPending = true,
+  isPending = false,
   isSubmitted = false,
   hasSubmissionError = false,
   onSubmit,
