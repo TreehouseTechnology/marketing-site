@@ -1,0 +1,24 @@
+---
+title: "Introducing: iRacing OAuth client"
+summary: "iRacing introduced an OAuth client spec, so we built a client for it."
+author: Justin Makaila
+---
+
+Although the iRacing OAuth 2.0 service is not fully available for public consumption, we decided
+to implement an OAuth client in TypeScript and ship it as `@iracing-data/oauth-client`, as a package
+within `iracing-data-api`.
+
+We're building a league management dashboard for [FTR Events](https://ftr.events) that will be used
+to manage teams and drivers in the league, as well as one-off event sign ups and series registrations.
+
+The authentication is powered by Authjs using database strategies. Within the `iracing-data-api` project,
+we have a library for interacting with the API via HTTP methods, so we can can check things like league
+membership, and pull down information about a given driver on registration.
+
+In the past, we've relied on the honor system when registering drivers and getting us their iRacing customer
+IDs, which we would then use to look-up the driver and determine if they were eligible for a series, and if
+it affected the team's classifiction (PRO/AM).
+
+We then send a league invitation to the driver using the customer ID.
+
+With OAuth, we can suggest drivers link their iRacing accounts, and confirm their identities via iRacing.
