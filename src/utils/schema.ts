@@ -18,6 +18,8 @@ export const TeamMetadataSchema = z.object({
   name: z.string(),
   role: z.string(),
   image: z.string(),
+  cvLink: z.string().trim().optional(),
+  cvLabel: z.enum(["Experience", "CV"]).default("CV"),
 });
 
 export const BlogPostMetadataSchema = z.object({
