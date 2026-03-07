@@ -9,13 +9,39 @@ interface TeamMemberProps {
   role: string;
   description: string;
   image: string;
+  cvLink?: string;
+  cvLabel: "Experience" | "CV";
 }
 
-async function TeamMember({ image, name, role, description }: TeamMemberProps) {
-  const { default: MDXContent } = await evaluate(description, {
-    ...runtime,
-    Fragment,
-  });
+function getProfileContent({
+  description,
+  cvLink,
+  cvLabel,
+}: Pick<TeamMemberProps, "description" | "cvLink" | "cvLabel">) {
+  if (!cvLink?.trim()) {
+    return description;
+  }
+
+  return `${description}
+
+**${cvLabel}:** [${cvLabel}](${cvLink.trim()})`;
+}
+
+async function TeamMember({
+  image,
+  name,
+  role,
+  description,
+  cvLink,
+  cvLabel,
+}: TeamMemberProps) {
+  const { default: MDXContent } = await evaluate(
+    getProfileContent({ description, cvLink, cvLabel }),
+    {
+      ...runtime,
+      Fragment,
+    }
+  );
 
   return (
     <div className="grid grid-flow-col grid-rows-2 gap-4">
@@ -51,6 +77,8 @@ export async function TeamMembers() {
           name={teamMember.metadata.name}
           role={teamMember.metadata.role}
           description={teamMember.content}
+          cvLink={teamMember.metadata.cvLink}
+          cvLabel={teamMember.metadata.cvLabel}
         />
       ))}
     </div>
