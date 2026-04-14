@@ -20,7 +20,7 @@ export default function Page() {
       <p className="max-w-2xl text-neutral-700 dark:text-neutral-300">{`Treehouse Technology designs, develops, and delivers scalable mobile and web applications tailored to your business needs. From MVPs to production-grade systems, we provide end-to-end technical expertise that helps teams ship faster and stay maintainable.`}</p>
 
       <div className="space-y-3">
-        <h2 className="text-lg font-semibold tracking-tight">
+        <h2 className="text-lg font-semibold tracking-tight text-neutral-950 dark:text-neutral-50">
           What we help with
         </h2>
         <p className="max-w-2xl text-neutral-700 dark:text-neutral-300">
@@ -84,7 +84,10 @@ export default function Page() {
           and support the launch, we can help. We are especially useful for
           teams that need startup speed with stronger engineering discipline.
         </p>
-        <Link className="underline decoration-neutral-400 underline-offset-4" href="/contact">
+        <Link
+          className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-950 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300 dark:hover:border-neutral-100 dark:hover:text-neutral-100"
+          href="/contact"
+        >
           Interested? Get in touch.
         </Link>
       </div>

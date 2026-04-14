@@ -17,32 +17,32 @@ function ArrowIcon() {
 
 export default function Footer() {
   return (
-    <footer className="mb-16">
-      <ul className="font-sm mt-8 flex flex-col space-x-0 space-y-2 text-neutral-600 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-300">
+    <footer className="mt-12 mb-16 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+      <ul className="flex flex-col gap-3 text-sm text-neutral-600 md:flex-row md:items-center md:gap-3 dark:text-neutral-300">
         <li>
           <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 transition-colors hover:border-neutral-300 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-600 dark:hover:text-white"
             rel="noopener noreferrer"
             target="_blank"
             href="https://github.com/treehousetechnology/"
           >
             <ArrowIcon />
-            <p className="ml-2 h-7">github</p>
+            <span>github</span>
           </a>
         </li>
         <li>
           <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 transition-colors hover:border-neutral-300 hover:text-neutral-950 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-600 dark:hover:text-white"
             rel="noopener noreferrer"
             target="_blank"
             href="https://github.com/treehousetechnology/marketing-site"
           >
             <ArrowIcon />
-            <p className="ml-2 h-7">view source</p>
+            <span>view source</span>
           </a>
         </li>
       </ul>
-      <p className="mt-8 text-neutral-600 dark:text-neutral-300">
+      <p className="mt-8 text-sm text-neutral-500 dark:text-neutral-400">
         © {new Date().getFullYear()} MIT Licensed
       </p>
     </footer>

@@ -103,13 +103,15 @@ export default async function Blog({
 
       <PageTitle title={post.metadata.title} />
 
-      <h2>{post.metadata.author}</h2>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
+      <div className="mt-2 flex items-center justify-between text-sm">
+        <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+          {post.metadata.author}
+        </p>
         <p className="text-sm text-neutral-600 dark:text-neutral-400">
           {formatDate(post.metadata.publishedAt)}
         </p>
       </div>
-      <article className="prose">
+      <article className="prose prose-article mt-8">
         <MdxContent source={post.content} />
         {post.metadata.postId && (
           <BskyPost

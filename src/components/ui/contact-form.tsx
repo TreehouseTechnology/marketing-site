@@ -13,7 +13,10 @@ interface FormLabelProps {
 
 function FormLabel({ label, formKey }: FormLabelProps) {
   return (
-    <label htmlFor={formKey} className="mb-3 block text-base font-medium">
+    <label
+      htmlFor={formKey}
+      className="mb-3 block text-sm font-medium uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400"
+    >
       {label}
     </label>
   );
@@ -27,7 +30,7 @@ function FieldError({ message }: FieldErrorProps) {
   return (
     <p
       role="alert"
-      className="mb-3 mt-3 block text-base font-medium text-red-500"
+      className="mb-3 mt-3 block text-sm font-medium text-red-600 dark:text-red-400"
     >
       {message}
     </p>
@@ -48,7 +51,7 @@ function LoadingSpinner() {
         cy="12"
         r="10"
         stroke="currentColor"
-        stroke-width="4"
+        strokeWidth="4"
       ></circle>
       <path
         className="opacity-75"
@@ -82,47 +85,47 @@ function ContactForm({
   });
 
   return !isSubmitted ? (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="mb-5">
+    <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+      <div>
         <FormLabel formKey="name" label="Full Name" />
         <input
           disabled={isPending}
           type="text"
           placeholder="Full Name"
-          className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
+          className="w-full rounded-2xl border border-neutral-200 bg-white/80 px-4 py-3 text-base text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/5 disabled:cursor-not-allowed disabled:opacity-60 dark:border-neutral-800 dark:bg-neutral-950/80 dark:text-neutral-50 dark:placeholder:text-neutral-500 dark:focus:border-neutral-50 dark:focus:ring-white/5"
           {...register("name", { required: true })}
         />
         {errors.name && <FieldError message={errors.name.message} />}
       </div>
-      <div className="mb-5">
+      <div>
         <FormLabel formKey="email" label="Email Address" />
         <input
           disabled={isPending}
           type="email"
           placeholder="example@domain.com"
-          className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
+          className="w-full rounded-2xl border border-neutral-200 bg-white/80 px-4 py-3 text-base text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/5 disabled:cursor-not-allowed disabled:opacity-60 dark:border-neutral-800 dark:bg-neutral-950/80 dark:text-neutral-50 dark:placeholder:text-neutral-500 dark:focus:border-neutral-50 dark:focus:ring-white/5"
           {...register("email", { required: true })}
         />
         {errors.email && <FieldError message={errors.email.message} />}
       </div>
-      <div className="mb-5">
+      <div>
         <FormLabel formKey="message" label="Message" />
         <textarea
           disabled={isPending}
           rows={4}
           placeholder="Type your message"
-          className="w-full resize-none rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
+          className="w-full resize-none rounded-2xl border border-neutral-200 bg-white/80 px-4 py-3 text-base text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/5 disabled:cursor-not-allowed disabled:opacity-60 dark:border-neutral-800 dark:bg-neutral-950/80 dark:text-neutral-50 dark:placeholder:text-neutral-500 dark:focus:border-neutral-50 dark:focus:ring-white/5"
           {...register("message", { required: true })}
         ></textarea>
         {errors.message && <FieldError message={errors.message.message} />}
       </div>
       <div>
         <button
-          className="hover:shadow-form rounded-md bg-purple-500 py-3 px-5 text-base font-semibold text-white outline-none inline-flex items-center"
+          className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-5 py-3 text-sm font-semibold text-neutral-950 transition-colors hover:border-neutral-950 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-neutral-800 dark:bg-neutral-50 dark:text-neutral-950 dark:hover:border-white dark:hover:bg-white"
           disabled={isPending}
         >
           {isPending && <LoadingSpinner />}
-          Submit
+          <span>Submit</span>
         </button>
         {hasSubmissionError && (
           <FieldError message="There was an error processing your submission. Please try again." />
@@ -130,7 +133,14 @@ function ContactForm({
       </div>
     </form>
   ) : (
-    <h4>Thank you for your submission</h4>
+    <div className="rounded-3xl border border-neutral-200 bg-white/80 p-6 text-neutral-700 shadow-sm dark:border-neutral-800 dark:bg-neutral-950/70 dark:text-neutral-300">
+      <h4 className="text-lg font-semibold tracking-tight text-neutral-950 dark:text-neutral-50">
+        Thank you for your submission
+      </h4>
+      <p className="mt-2 text-sm leading-6">
+        We have your message and will follow up as soon as we can.
+      </p>
+    </div>
   );
 }
 

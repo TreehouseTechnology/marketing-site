@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 ::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
+  background-color: #0f172a;
+  color: #f8fafc;
 }
 
 :root {
@@ -17,6 +17,20 @@
   --sh-entity: #e25a1c;
 }
 
+html {
+  min-width: 360px;
+  background:
+    radial-gradient(circle at top, rgb(255 255 255 / 0.82), transparent 28%),
+    linear-gradient(180deg, rgb(250 248 244) 0%, rgb(253 252 250) 38%, rgb(247 244 239) 100%);
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgb(15 23 42 / 0.04), transparent 28%),
+    radial-gradient(circle at top right, rgb(15 23 42 / 0.025), transparent 24%);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --sh-class: #4c97f8;
@@ -26,11 +40,16 @@
   }
   html {
     color-scheme: dark;
+    background:
+      radial-gradient(circle at top, rgb(9 9 11 / 0.95), transparent 28%),
+      linear-gradient(180deg, rgb(8 8 10) 0%, rgb(6 6 8) 100%);
   }
-}
 
-html {
-  min-width: 360px;
+  body {
+    background:
+      radial-gradient(circle at top left, rgb(255 255 255 / 0.03), transparent 28%),
+      radial-gradient(circle at top right, rgb(255 255 255 / 0.02), transparent 24%);
+  }
 }
 
 .prose .anchor {
@@ -50,11 +69,14 @@ html {
 }
 
 .prose a {
+  color: rgb(15 23 42);
   text-decoration: underline;
-  text-decoration-thickness: 0.1em;
-  text-underline-offset: 0.125em;
-  transition: all 150ms ease;
-  text-decoration-color: color-mix(in oklab, currentColor 40%, transparent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in oklab, currentColor 36%, transparent);
+  transition:
+    color 150ms ease,
+    text-decoration-color 150ms ease;
 }
 
 .prose .anchor:after {
@@ -67,11 +89,11 @@ html {
 }
 
 .prose pre {
-  background-color: rgb(250 250 250);
-  border-radius: 0.5rem;
+  background-color: rgb(248 248 248);
+  border-radius: 1rem;
   overflow-x: auto;
   border: 1px solid rgb(229 229 229);
-  padding: 0.5rem 0.75rem;
+  padding: 0.875rem 1rem;
   font-size: 0.875rem;
 }
 
@@ -98,42 +120,43 @@ html {
 .prose p {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  color: rgb(38 38 38);
+  color: rgb(55 65 81);
+  line-height: 1.75;
 }
 
 .prose h1 {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-  font-weight: 500;
+  font-size: 2rem;
+  line-height: 1.15;
+  font-weight: 600;
   letter-spacing: -0.025em;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
 }
 
 .prose h2 {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  font-weight: 500;
+  font-size: 1.375rem;
+  line-height: 1.35;
+  font-weight: 600;
   letter-spacing: -0.025em;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.65rem;
 }
 
 .prose h3 {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.45;
+  font-weight: 600;
   letter-spacing: -0.025em;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
 .prose h4 {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 600;
   letter-spacing: -0.025em;
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
   margin-bottom: 0.5rem;
 }
 
@@ -149,6 +172,53 @@ html {
 .prose ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
+}
+
+.prose-article p {
+  color: rgb(55 65 81);
+}
+
+.prose-entry {
+  color: rgb(55 65 81);
+}
+
+.prose-entry p {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.97rem;
+}
+
+.prose-entry h1,
+.prose-entry h2,
+.prose-entry h3,
+.prose-entry h4,
+.prose-entry h5,
+.prose-entry h6 {
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.prose-entry h2 {
+  font-size: 1rem;
+}
+
+.prose-entry h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.prose-entry h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.prose-entry ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+}
+
+.prose-entry li + li {
+  margin-top: 0.3rem;
 }
 
 .prose > :first-child {
@@ -186,7 +256,8 @@ table {
 }
 @media (prefers-color-scheme: dark) {
   .prose a {
-    text-decoration-color: color-mix(in oklab, currentColor 60%, transparent);
+    color: rgb(226 232 240);
+    text-decoration-color: color-mix(in oklab, currentColor 52%, transparent);
   }
 
   .prose .anchor:after {
@@ -200,5 +271,10 @@ table {
 
   .prose p {
     color: rgb(229 229 229);
+  }
+
+  .prose-entry,
+  .prose-article p {
+    color: rgb(209 213 219);
   }
 }

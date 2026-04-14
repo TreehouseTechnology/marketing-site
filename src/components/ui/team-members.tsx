@@ -34,26 +34,29 @@ async function TeamMember({
   cvLabel,
 }: TeamMemberProps) {
   return (
-    <div className="grid grid-flow-col grid-rows-2 gap-4">
+    <article className="grid gap-5 rounded-3xl border border-neutral-200 bg-white/75 p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-950/70 sm:grid-cols-[150px_1fr] sm:items-start">
       <Image
-        className="row-span-2"
+        className="rounded-[18px] border border-neutral-200 dark:border-neutral-800"
         src={image}
         alt={name}
         width="150"
         height="150"
-        style={{ borderRadius: "10%" }}
       />
-      <div>
-        <h3 className="font-semibold text-med">{name}</h3>
-        <h4>
-          <i>{role}</i>
-        </h4>
+      <div className="space-y-3">
+        <div>
+          <h3 className="text-lg font-semibold tracking-tight text-neutral-950 dark:text-neutral-50">
+            {name}
+          </h3>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            {role}
+          </p>
+        </div>
         <MdxContent
           source={getProfileContent({ description, cvLink, cvLabel })}
-          className="prose"
+          className="prose prose-article"
         />
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -61,19 +64,23 @@ export async function TeamMembers() {
   const team = getTeam();
 
   return (
-    <div>
-      <h3 className="font-semibold text-2xl mt-8 mb-4">Team</h3>
-      {team.map((teamMember, index) => (
-        <TeamMember
-          key={`${teamMember.metadata.name}-${teamMember.metadata.role}-${index}`}
-          image={teamMember.metadata.image}
-          name={teamMember.metadata.name}
-          role={teamMember.metadata.role}
-          description={teamMember.content}
-          cvLink={teamMember.metadata.cvLink}
-          cvLabel={teamMember.metadata.cvLabel}
-        />
-      ))}
+    <div className="space-y-5">
+      <h3 className="text-lg font-semibold tracking-tight text-neutral-950 dark:text-neutral-50">
+        Team
+      </h3>
+      <div className="space-y-4">
+        {team.map((teamMember, index) => (
+          <TeamMember
+            key={`${teamMember.metadata.name}-${teamMember.metadata.role}-${index}`}
+            image={teamMember.metadata.image}
+            name={teamMember.metadata.name}
+            role={teamMember.metadata.role}
+            description={teamMember.content}
+            cvLink={teamMember.metadata.cvLink}
+            cvLabel={teamMember.metadata.cvLabel}
+          />
+        ))}
+      </div>
     </div>
   );
 }

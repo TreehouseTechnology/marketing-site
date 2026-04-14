@@ -26,7 +26,7 @@ export default function Page() {
           href="https://calendly.com/justin-treehousetechnology/30min"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline decoration-neutral-400 underline-offset-4"
+          className="font-medium text-neutral-950 underline decoration-neutral-400 underline-offset-4 hover:text-neutral-700 dark:text-neutral-100 dark:hover:text-neutral-300"
         >
           book a 30-minute call
         </a>

@@ -35,5 +35,6 @@ export const ProductMetadataSchema = z.object({
   title: z.string(),
   link: z.url().optional(),
   linkText: z.string().default("view"),
+  type: z.enum(["product", "open-source"]).default("product"),
   wip: z.coerce.boolean().default(false),
 });
