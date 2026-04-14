@@ -1,21 +1,60 @@
-import { Metadata } from "next";
 import Link from "next/link";
 import ServiceOffering from "@/components/ui/service-offering";
 import { PageTitle } from "@/components/ui/page-title";
+import { JsonLd } from "@/components/ui/json-ld";
+import {
+  createPageMetadata,
+  organizationJsonLd,
+  serviceJsonLd,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Mobile and Web App Development Services",
+export const metadata = createPageMetadata({
+  title: "Next.js, React Native & Full-Stack Development Services",
   description:
-    "Treehouse Technology provides MVP delivery, architecture, DevOps, and technical strategy for startups and small teams.",
-  alternates: {
-    canonical: "/services",
-  },
-};
+    "Treehouse Technology designs and builds MVPs, web applications, mobile apps, and cloud infrastructure for startups and small teams.",
+  canonicalPath: "/services",
+});
 
 export default function Page() {
   return (
     <section className="space-y-6">
-      <PageTitle title="Mobile and Web App Development Services" />
+      <JsonLd
+        data={[
+          organizationJsonLd(),
+          serviceJsonLd({
+            name: "Mobile App Development",
+            description:
+              "React Native and Expo app development for new products and existing applications.",
+            pathname: "/services",
+          }),
+          serviceJsonLd({
+            name: "Web Application Development",
+            description:
+              "Next.js, React, Node.js, and Python development for production web applications.",
+            pathname: "/services",
+          }),
+          serviceJsonLd({
+            name: "Full-stack Architecture",
+            description:
+              "Practical architecture for APIs, authentication, and maintainable application systems.",
+            pathname: "/services",
+          }),
+          serviceJsonLd({
+            name: "Cloud Infrastructure and DevOps",
+            description:
+              "Cloud deployment, CI/CD, and containerization support for shipping software reliably.",
+            pathname: "/services",
+          }),
+          serviceJsonLd({
+            name: "Consulting and Technical Strategy",
+            description:
+              "MVP scoping, technical audits, and implementation support for small teams.",
+            pathname: "/services",
+          }),
+        ]}
+      />
+
+      <PageTitle title="Next.js, React Native & Full-Stack Development Services" />
 
       <p className="max-w-2xl text-neutral-700 dark:text-neutral-300">{`Treehouse Technology designs, develops, and delivers scalable mobile and web applications tailored to your business needs. From MVPs to production-grade systems, we provide end-to-end technical expertise that helps teams ship faster and stay maintainable.`}</p>
 

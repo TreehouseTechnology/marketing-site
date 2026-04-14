@@ -1,19 +1,51 @@
-import { Metadata } from "next";
 import { PageTitle } from "@/components/ui/page-title";
 import { TeamMembers } from "@/components/ui/team-members";
+import { JsonLd } from "@/components/ui/json-ld";
+import {
+  aboutPageJsonLd,
+  createPageMetadata,
+  organizationJsonLd,
+  absoluteUrl,
+} from "@/lib/seo";
+import { getTeam } from "@/app/about/utils";
 
-export const metadata: Metadata = {
-  title: "About Treehouse Technology",
+export const metadata = createPageMetadata({
+  title: "Founder-Led Software Consultancy",
   description:
     "Treehouse Technology is a founder-led software consultancy with deep startup experience across product, engineering, and delivery.",
-  alternates: {
-    canonical: "/about",
-  },
-};
+  canonicalPath: "/about",
+});
 
 export default function Page() {
+  const team = getTeam();
+
   return (
     <section className="space-y-6">
+      <JsonLd
+        data={[
+          organizationJsonLd(),
+          aboutPageJsonLd({
+            description:
+              "Treehouse Technology is a founder-led software consultancy with deep startup experience across product, engineering, and delivery.",
+          }),
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Treehouse Technology team",
+            itemListElement: team.map((member, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              item: {
+                "@type": "Person",
+                name: member.metadata.name,
+                jobTitle: member.metadata.role,
+                image: absoluteUrl(member.metadata.image),
+              },
+            })),
+          },
+        ]}
+      />
+
       <div>
         <PageTitle title="About Treehouse Technology" />
 

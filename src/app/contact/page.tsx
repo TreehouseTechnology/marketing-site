@@ -1,19 +1,32 @@
 import ContactForm from "@/components/containers/contact-form";
+import { JsonLd } from "@/components/ui/json-ld";
 import { PageTitle } from "@/components/ui/page-title";
-import { Metadata } from "next";
+import {
+  contactPageJsonLd,
+  createPageMetadata,
+  organizationJsonLd,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact Treehouse Technology",
+export const metadata = createPageMetadata({
+  title: "Contact Treehouse Technology for a Project Estimate",
   description:
     "Contact Treehouse Technology about mobile, web, and full-stack development work.",
-  alternates: {
-    canonical: "/contact",
-  },
-};
+  canonicalPath: "/contact",
+});
 
 export default function Page() {
   return (
     <section className="space-y-6">
+      <JsonLd
+        data={[
+          organizationJsonLd(),
+          contactPageJsonLd({
+            description:
+              "Contact Treehouse Technology about mobile, web, and full-stack development work.",
+          }),
+        ]}
+      />
+
       <PageTitle title="Contact Treehouse Technology" />
       <p className="max-w-2xl text-neutral-700 dark:text-neutral-300">
         Tell us what you are building, what stage you are at, and where you

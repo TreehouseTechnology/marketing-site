@@ -1,25 +1,23 @@
 import Link from "next/link";
-import { Metadata } from "next";
+import { JsonLd } from "@/components/ui/json-ld";
+import {
+  createPageMetadata,
+  organizationJsonLd,
+  websiteJsonLd,
+  siteDescription,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Mobile and Web App Development Consultancy",
-  description:
-    "Treehouse Technology helps startups and small teams design, build, and ship mobile, web, and full-stack software.",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: "Mobile and Web App Development Consultancy",
-    description:
-      "Treehouse Technology helps startups and small teams design, build, and ship mobile, web, and full-stack software.",
-    url: "/",
-    type: "website",
-  },
-};
+export const metadata = createPageMetadata({
+  title: "Next.js, React Native & Full-Stack Development",
+  description: siteDescription,
+  canonicalPath: "/",
+});
 
 export default function Page() {
   return (
     <section className="space-y-12">
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
+
       <header className="space-y-6 rounded-[2rem] border border-neutral-200/80 bg-white/70 p-6 shadow-sm backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-950/60 sm:p-8">
         <p className="text-xs uppercase tracking-[0.35em] text-neutral-500 dark:text-neutral-400">
           Software development consultancy
