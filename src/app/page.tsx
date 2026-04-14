@@ -8,7 +8,7 @@ import {
 } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Next.js, React Native & Full-Stack Development",
+  title: "React, React Native & Full-Stack Development",
   description: siteDescription,
   canonicalPath: "/",
 });
@@ -61,7 +61,10 @@ export default function Page() {
           <ul className="mt-4 space-y-3 text-sm leading-6 text-neutral-700 dark:text-neutral-300">
             <li>Product discovery, MVP planning, and build scoping</li>
             <li>Mobile app development with React Native and Expo</li>
-            <li>Web app development with Next.js, React, Node.js, and Python</li>
+            <li>
+              Web app development with Next.js, React, Node.js, Python, and
+              Rust.
+            </li>
             <li>Technical audits, architecture, and team augmentation</li>
           </ul>
         </div>
@@ -75,8 +78,12 @@ export default function Page() {
           </h2>
           <ul className="mt-4 space-y-3 text-sm leading-6 text-neutral-700 dark:text-neutral-300">
             <li>Founder-led delivery with 13 years of startup experience</li>
-            <li>Small-team communication and direct implementation ownership</li>
-            <li>Practical architecture that balances speed and maintainability</li>
+            <li>
+              Small-team communication and direct implementation ownership
+            </li>
+            <li>
+              Practical architecture that balances speed and maintainability
+            </li>
             <li>Clear delivery paths from prototype to production</li>
           </ul>
         </div>

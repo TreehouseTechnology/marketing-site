@@ -9,7 +9,7 @@ import {
 } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Next.js, React Native & Full-Stack Development Services",
+  title: "React, React Native & Full-Stack Development Services",
   description:
     "Treehouse Technology designs and builds MVPs, web applications, mobile apps, and cloud infrastructure for startups and small teams.",
   canonicalPath: "/services",
@@ -30,7 +30,7 @@ export default function Page() {
           serviceJsonLd({
             name: "Web Application Development",
             description:
-              "Next.js, React, Node.js, and Python development for production web applications.",
+              "Next.js, React, Node.js, Python, and Rust development for production web applications.",
             pathname: "/services",
           }),
           serviceJsonLd({
@@ -54,7 +54,7 @@ export default function Page() {
         ]}
       />
 
-      <PageTitle title="Next.js, React Native & Full-Stack Development Services" />
+      <PageTitle title="React, React Native & Full-Stack Development Services" />
 
       <p className="max-w-2xl text-neutral-700 dark:text-neutral-300">{`Treehouse Technology designs, develops, and delivers scalable mobile and web applications tailored to your business needs. From MVPs to production-grade systems, we provide end-to-end technical expertise that helps teams ship faster and stay maintainable.`}</p>
 
