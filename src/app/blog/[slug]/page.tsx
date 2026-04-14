@@ -1,119 +1,22 @@
-import React, { Fragment } from "react";
-import * as runtime from "react/jsx-runtime";
-import Image from "next/image";
-import Link from "next/link";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { evaluate } from "@mdx-js/mdx";
-import { highlight } from "sugar-high";
 import { baseUrl } from "@/app/sitemap";
 import { formatDate, getBlogPost, getBlogPosts } from "../utils";
 import { PageTitle } from "@/components/ui/page-title";
 import { BskyPost } from "@/components/containers/bsky-post";
-
-function Table({ data }) {
-  let headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
-  ));
-  let rows = data.rows.map((row, index) => (
-    <tr key={index}>
-      {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
-      ))}
-    </tr>
-  ));
-
-  return (
-    <table>
-      <thead>
-        <tr>{headers}</tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
-  );
-}
-
-function CustomLink(props) {
-  let href = props.href;
-
-  if (href.startsWith("/")) {
-    return (
-      <Link href={href} {...props}>
-        {props.children}
-      </Link>
-    );
-  }
-
-  if (href.startsWith("#")) {
-    return <a {...props} />;
-  }
-
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
-}
-
-function RoundedImage(props) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />;
-}
-
-function Code({ children, ...props }) {
-  let codeHTML = highlight(children);
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
-}
-
-function slugify(str) {
-  return str
-    .toString()
-    .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, "-") // Replace spaces with -
-    .replace(/&/g, "-and-") // Replace & with 'and'
-    .replace(/[^\w\-]+/g, "") // Remove all non-word characters except for -
-    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
-}
-
-function createHeading(level) {
-  const Heading = ({ children }) => {
-    let slug = slugify(children);
-    return React.createElement(
-      `h${level}`,
-      { id: slug },
-      [
-        React.createElement("a", {
-          href: `#${slug}`,
-          key: `link-${slug}`,
-          className: "anchor",
-        }),
-      ],
-      children
-    );
-  };
-
-  Heading.displayName = `Heading${level}`;
-
-  return Heading;
-}
-
-let components = {
-  h1: createHeading(1),
-  h2: createHeading(2),
-  h3: createHeading(3),
-  h4: createHeading(4),
-  h5: createHeading(5),
-  h6: createHeading(6),
-  Image: RoundedImage,
-  a: CustomLink,
-  code: Code,
-  Table,
-};
+import { MdxContent } from "@/components/ui/mdx-content";
 
 export async function generateStaticParams() {
-  const posts = getBlogPosts();
-
-  return posts.map(({ slug }) => ({
+  return getBlogPosts().map(({ slug }) => ({
     slug,
   }));
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata | undefined> {
   const { slug } = await params;
   let post = getBlogPost(slug);
   if (!post) {
@@ -126,14 +29,20 @@ export async function generateMetadata({ params }) {
     summary: description,
     image,
   } = post.metadata;
-  let ogImage = image ? image : `${baseUrl}/blog/${post.slug}/opengraph-image`;
+  let ogImage = image
+    ? new URL(image, baseUrl).toString()
+    : new URL(`/blog/${post.slug}/opengraph-image`, baseUrl).toString();
 
   return {
     title,
     description,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
     openGraph: {
       title,
       description,
+      siteName: "Treehouse Technology",
       type: "article",
       publishedTime,
       url: `${baseUrl}/blog/${post.slug}`,
@@ -164,11 +73,6 @@ export default async function Blog({
     return notFound();
   }
 
-  const { default: MDXContent } = await evaluate(post.content, {
-    ...runtime,
-    Fragment,
-  });
-
   return (
     <section>
       <script
@@ -183,12 +87,15 @@ export default async function Blog({
             dateModified: post.metadata.publishedAt,
             description: post.metadata.summary,
             image: post.metadata.image
-              ? `${baseUrl}${post.metadata.image}`
-              : `/og?title=${encodeURIComponent(post.metadata.title)}`,
+              ? new URL(post.metadata.image, baseUrl).toString()
+              : new URL(
+                  `/blog/${post.slug}/opengraph-image`,
+                  baseUrl,
+                ).toString(),
             url: `${baseUrl}/blog/${post.slug}`,
             author: {
               "@type": "Person",
-              name: "Justin Makaila",
+              name: post.metadata.author,
             },
           }),
         }}
@@ -203,7 +110,7 @@ export default async function Blog({
         </p>
       </div>
       <article className="prose">
-        <MDXContent components={components} />
+        <MdxContent source={post.content} />
         {post.metadata.postId && (
           <BskyPost
             limit={10}

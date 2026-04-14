@@ -12,10 +12,12 @@ export const metadata: Metadata = {
     default: "Treehouse Technology",
     template: "%s | Treehouse Technology",
   },
-  description: "Treehouse Technology, LLC Marketing site",
+  description:
+    "Treehouse Technology builds mobile, web, and full-stack software for startups and small teams.",
   openGraph: {
     title: "Treehouse Technology",
-    description: "Treehouse Technology, LLC showcase and contact",
+    description:
+      "Treehouse Technology builds mobile, web, and full-stack software for startups and small teams.",
     url: baseUrl,
     siteName: "Treehouse Technology",
     locale: "en_US",

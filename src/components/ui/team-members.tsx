@@ -1,8 +1,6 @@
-import { Fragment } from "react";
-import * as runtime from "react/jsx-runtime";
-import { evaluate } from "@mdx-js/mdx";
 import { getTeam } from "@/app/about/utils";
 import Image from "next/image";
+import { MdxContent } from "@/components/ui/mdx-content";
 
 interface TeamMemberProps {
   name: string;
@@ -35,14 +33,6 @@ async function TeamMember({
   cvLink,
   cvLabel,
 }: TeamMemberProps) {
-  const { default: MDXContent } = await evaluate(
-    getProfileContent({ description, cvLink, cvLabel }),
-    {
-      ...runtime,
-      Fragment,
-    }
-  );
-
   return (
     <div className="grid grid-flow-col grid-rows-2 gap-4">
       <Image
@@ -58,7 +48,10 @@ async function TeamMember({
         <h4>
           <i>{role}</i>
         </h4>
-        <MDXContent />
+        <MdxContent
+          source={getProfileContent({ description, cvLink, cvLabel })}
+          className="prose"
+        />
       </div>
     </div>
   );

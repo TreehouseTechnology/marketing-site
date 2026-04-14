@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
 import * as z from "zod/v4";
-import parseFrontMatter from "@/utils/parseFrontMatter";
 
 /**
  * Gets a list of files in the provided directory.
@@ -12,12 +12,39 @@ function getMDXFiles(dir: fs.PathLike) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
 }
 
+function normalizeFrontmatterValue(value: unknown): unknown {
+  if (value instanceof Date) {
+    return value.toISOString().slice(0, 10);
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(normalizeFrontmatterValue);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>).map(([key, entry]) => [
+        key,
+        normalizeFrontmatterValue(entry),
+      ]),
+    );
+  }
+
+  return value;
+}
+
 function readMDXFile<M extends z.ZodRawShape>(
   path: fs.PathOrFileDescriptor,
   schema: z.ZodObject<M>
 ) {
   let rawContent = fs.readFileSync(path, "utf-8");
-  return parseFrontMatter(rawContent, schema);
+  let { data, content } = matter(rawContent);
+  let normalizedData = normalizeFrontmatterValue(data);
+
+  return {
+    metadata: schema.parse(normalizedData),
+    content: content.trim(),
+  };
 }
 
 export function getMDXData<M extends z.ZodRawShape>(

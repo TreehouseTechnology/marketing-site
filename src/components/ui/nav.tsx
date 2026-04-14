@@ -42,6 +42,14 @@ export function Navbar() {
                 </Link>
               );
             })}
+            <a
+              href="https://calendly.com/justin-treehousetechnology/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1 rounded-full border border-neutral-300 dark:border-neutral-700"
+            >
+              book a call
+            </a>
           </div>
         </nav>
       </div>

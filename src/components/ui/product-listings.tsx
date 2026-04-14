@@ -1,7 +1,5 @@
-import { Fragment } from "react";
-import * as runtime from "react/jsx-runtime";
-import { evaluate } from "@mdx-js/mdx";
 import { getProductListings } from "@/app/products/utils";
+import { MdxContent } from "@/components/ui/mdx-content";
 
 interface ProductListingProps {
   title: string;
@@ -16,17 +14,22 @@ async function ProductListing({
   linkText,
   description,
 }: ProductListingProps) {
-  const { default: MDXContent } = await evaluate(description, {
-    ...runtime,
-    Fragment,
-  });
-
   return (
     <div>
       <h3 className="font-semibold text-med mb-4 tracking-tighter">
-        {title} (<a href={link}>{linkText}</a>)
+        {title}
+        {link && (
+          <>
+            {" "}
+            (
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              {linkText}
+            </a>
+            )
+          </>
+        )}
       </h3>
-      <MDXContent />
+      <MdxContent source={description} className="prose" />
     </div>
   );
 }
