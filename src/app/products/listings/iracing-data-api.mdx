@@ -4,19 +4,13 @@ link: https://github.com/racedirector/iracing-data-api
 linkText: github
 type: open-source
 ---
-`iracing-data-api` is a collection of packages oriented around consumption of the iRacing `/data` API.
+`iracing-data-api` helps developers build applications on top of iRacing’s official data API.
 
-It provides OAuth and API clients, schemas, helpers and examples for interacting with the iRacing `/data` API
-in TypeScript and Rust.
+It provides reusable clients, schemas, authentication helpers, and examples so teams can spend less time wiring up API access and more time building racing tools, dashboards, league systems, and data workflows.
 
-## Packages
+## Details
 
-### Rust
-  - [`iracing-data-api-client`](https://github.com/racedirector/iracing-data-api/tree/main/crates/iracing-data-api-client): An OpenAPI-generator `/data` API client.
-
-### TypeScript
-  - [`@iracing-data/oauth-schema`](https://github.com/racedirector/iracing-data-api/tree/main/packages/oauth/schema): A zod schema for the iRacing OAuth API.
-  - [`@iracing-data/oauth-client`](https://github.com/racedirector/iracing-data-api/tree/main/packages/oauth/client): An OAuth client for iRacing.
-  - [`@iracing-data/api-schema`](https://github.com/racedirector/iracing-data-api/tree/main/packages/api/schema): A zod schema for the iRacing `/data` API.
-  - [`@iracing-data/api-client-fetch`](https://github.com/racedirector/iracing-data-api/tree/main/packages/api/client/fetch): An OpenAPI-generator `fetch` client for the `/data` API.
-  - [`@iracing-data/api-client-axios`](https://github.com/racedirector/iracing-data-api/tree/main/packages/api/client/axios): An OpenAPI-generator `axios` client for the `/data` API.
+- Authenticate with iRacing’s API using reusable OAuth utilities.
+- Fetch iRacing data from TypeScript or Rust applications.
+- Use shared schemas to validate API responses.
+- Start from examples instead of building every integration from scratch.
